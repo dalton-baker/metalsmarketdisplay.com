@@ -1,5 +1,18 @@
-RewriteEngine On
-RewriteRule ^api/getmarkets$ ./cgi-bin/getmarkets.php [NC]
-RewriteRule ^api/updatemarket$ ./cgi-bin/updatemarket.php [NC]
-RewriteRule ^siteinfo$ ./info.php [NC]
-RewriteRule ^embed/metals$ ./embeds/metals.php [NC]
+# Begin EnforceSSL metalsmarketdisplay.com
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTP_HOST} ^(www.)?metalsmarketdisplay.com$
+    RewriteCond %{HTTPS} !=on
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L]
+
+    RewriteRule ^api/getmarkets$ ./cgi-bin/getmarkets.php [NC]
+    RewriteRule ^api/updatemarket$ ./cgi-bin/updatemarket.php [NC]
+    RewriteRule ^siteinfo$ ./info.php [NC]
+    RewriteRule ^about$ ./sub-pages/about.php [NC]
+    RewriteRule ^embed/metals$ ./embeds/metals.php [NC]
+</IfModule>
+# End EnforceSSL
+
+Options +ExecCGI
+AddHandler cgi-script .py
+AddHandler cgi-script .pl

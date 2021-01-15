@@ -7,7 +7,7 @@
         <a href="/"><i class="material-icons">show_chart</i>&nbsp; Charts</a>
     </div>
     <div>
-        <a href="/siteinfo"> <i class="material-icons">info</i>&nbsp; Info</a>
+        <a href="/about"> <i class="material-icons">info</i>&nbsp; About</a>
     </div>
 </div>
 
