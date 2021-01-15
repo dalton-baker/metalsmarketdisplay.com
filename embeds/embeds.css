@@ -1,0 +1,83 @@
+body {
+    background-color: #1e1e1e;
+    font-size: 100%;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+}
+
+.main-div{
+    height: 100%;
+    width: 100%;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+  
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.down-color{
+    color: #db3344 !important;
+}
+
+.up-color{
+    color: #549267 !important;
+}
+
+#metal-market {
+    border-collapse: collapse;
+    font-weight: bold;
+    background-color: rgba(255,255,255,.09);
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+}
+
+    #metal-market th {
+        text-align: left;
+        color: #FFFFFF;
+        font-size: 24px;
+        width: 115px;
+        padding: 5px;
+    }
+
+    #metal-market td{
+        color: #FFFFFF;
+        font-size: 16px;
+        text-align: right;
+        width: 75px;
+    }
+
+    #metal-market td:first-child{
+        padding-top: 0px !important;;
+    }
+
+    #metal-market td:last-child{
+        padding: 3px 5px 3px 0px;
+
+    }
+
+    #metal-market:hover {
+        background-color: rgba(255,255,255,.12);
+        transition: 0.3s;
+    }
+
+.link-card{
+    background-color: rgba(255,255,255,.09);
+    border-radius: 5px;
+    padding: 5px 10px 5px 10px;
+    text-decoration: none;
+    font-size: 14px;
+    color: #FFFFFF;
+    display: block;
+    transition: 0.3s;
+    margin: 5px;
+    text-align: center;
+}
+
+.link-card:hover{
+    background-color: rgba(255,255,255,.16);
+}

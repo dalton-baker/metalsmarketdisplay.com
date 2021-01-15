@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteRule ^api/getmarkets$ ./cgi-bin/getmarkets.php [NC]
+RewriteRule ^api/updatemarket$ ./cgi-bin/updatemarket.php [NC]
+RewriteRule ^siteinfo$ ./info.php [NC]
+RewriteRule ^embed/metals$ ./embeds/metals.php [NC]
