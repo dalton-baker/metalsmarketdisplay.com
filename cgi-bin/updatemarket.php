@@ -53,20 +53,40 @@ else{
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $kitcoResponse = curl_exec($ch);
 
-        curl_setopt($ch, CURLOPT_URL, 'https://kitco2.websol.barchart.com/?module=indiceDetail&js=1&_host=www.kitco.com&_hostparams=j1_module%3DindiceDetail%26popup%3D1%26j1_symbol%3D%2524DXY%26j1_region%3DUS%26j1_selected%3Dchart%26_hostparams%3D%26js%3D1&_rnd=5469957&_fullhost=https://www.kitco.com/finance/details.html&key=j1');
+        curl_setopt($ch, CURLOPT_URL, 'https://www.marketwatch.com/investing/index/dxy');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $usdResponse = curl_exec($ch);
 
-        curl_setopt($ch, CURLOPT_URL, 'https://kitco2.websol.barchart.com/?module=indiceDetail&js=1&_host=www.kitco.com&_hostparams=j1_module%3DindiceDetail%26popup%3D1%26j1_symbol%3D%2524DOWI%26j1_override%3D%26j1_region%3DUS&_rnd=7615301&_fullhost=https://www.kitco.com/finance/details.html&key=j1');
+        curl_setopt($ch, CURLOPT_URL, 'https://www.marketwatch.com/investing/index/djia');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $djiaResponse = curl_exec($ch);
 
-        curl_setopt($ch, CURLOPT_URL, 'https://coinmarketcap.com/currencies/bitcoin/');
+        curl_setopt($ch, CURLOPT_URL, 'https://www.marketwatch.com/investing/index/spx');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $spxResponse = curl_exec($ch);
+
+        curl_setopt($ch, CURLOPT_URL, 'https://www.marketwatch.com/investing/index/comp');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $compResponse = curl_exec($ch);
+
+        curl_setopt($ch, CURLOPT_URL, 'https://www.marketwatch.com/investing/cryptocurrency/btcusd');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $btcResponse = curl_exec($ch);
+
+        curl_setopt($ch, CURLOPT_URL, 'https://www.marketwatch.com/investing/cryptocurrency/ethusd');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $ethResponse = curl_exec($ch);
+
+        curl_setopt($ch, CURLOPT_URL, 'https://www.marketwatch.com/investing/cryptocurrency/ltcusd');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $ltcResponse = curl_exec($ch);
         curl_close($ch);
 
         preg_match('/market_status_wsp.*(OPEN|CLOSED)/', $kitcoResponse, $marketStatus);
@@ -99,9 +119,13 @@ else{
         preg_match('/wsp-PD-low.>(\d+\.\d+)/', $kitcoResponse, $lowPDmatch);
         preg_match('/wsp-PD-high.>(\d+\.\d+)/', $kitcoResponse, $highPDmatch);
 
-        preg_match('/headerPrice.*>(\d+\.\d+).*span>[\s\S]*span.*>([\-\+]?\d+\.\d+)[\s\S]*span.*\(([\-\+]?\d+\.\d+)%\)/', $usdResponse, $usdMatches);
-        preg_match('/headerPrice.*>(\d+,\d+\.\d+)[\s\S]*quote.*>([\-\+]?\d+\.\d+)[\s\S]*quote.*\(([\-\+]?\d+\.\d+)%\)/', $djiaResponse, $djiaMatches);
-        preg_match('/priceValue___11gHJ">\$(\d*,\d*\.\d*).*([icon\-Caret-up|icon\-Caret\-down])"><\/span>(\d*\.\d*)%.*sc-16r8icm-0 kXPxnI alternatePrices___1M7uY/', $btcResponse, $btcMatches);
+        preg_match('/price" content="(.*)".*\s.*priceChange" content="(.*)".*\s.*priceChangePercent" content="(.*)%/', $usdResponse, $usdMatches);
+        preg_match('/price" content="(.*)".*\s.*priceChange" content="(.*)".*\s.*priceChangePercent" content="(.*)%/', $djiaResponse, $djiaMatches);
+        preg_match('/price" content="(.*)".*\s.*priceChange" content="(.*)".*\s.*priceChangePercent" content="(.*)%/', $spxResponse, $spxMatches);
+        preg_match('/price" content="(.*)".*\s.*priceChange" content="(.*)".*\s.*priceChangePercent" content="(.*)%/', $compResponse, $compMatches);
+        preg_match('/price" content="\$(.*)".*\s.*priceChange" content="(.*)".*\s.*priceChangePercent" content="(.*)%/', $btcResponse, $btcMatches);
+        preg_match('/price" content="\$(.*)".*\s.*priceChange" content="(.*)".*\s.*priceChangePercent" content="(.*)%/', $ethResponse, $ethMatches);
+        preg_match('/price" content="\$(.*)".*\s.*priceChange" content="(.*)".*\s.*priceChangePercent" content="(.*)%/', $ltcResponse, $ltcMatches);
 
         $returnData = new KitcoData;
         $returnData->marketStatus = $marketStatus[1];
@@ -121,9 +145,30 @@ else{
         $returnData->djiaMarket->change = $djiaMatches[2];
         $returnData->djiaMarket->percent = $djiaMatches[3];
 
+        $returnData->spxMarket = new SmallMarketData;
+        $returnData->spxMarket->price = $spxMatches[1];
+        $returnData->spxMarket->change = $spxMatches[2];
+        $returnData->spxMarket->percent = $spxMatches[3];
+
+        $returnData->compMarket = new SmallMarketData;
+        $returnData->compMarket->price = $compMatches[1];
+        $returnData->compMarket->change = $compMatches[2];
+        $returnData->compMarket->percent = $compMatches[3];
+
         $returnData->btcMarket = new SmallMarketData;
-        $returnData->btcMarket->price = $btcMatches[1];
+        $returnData->btcMarket->price = $btcMatches[1] . ".00";
+        $returnData->btcMarket->change = $btcMatches[2];
         $returnData->btcMarket->percent = $btcMatches[3];
+
+        $returnData->ethMarket = new SmallMarketData;
+        $returnData->ethMarket->price = $ethMatches[1];
+        $returnData->ethMarket->change = $ethMatches[2];
+        $returnData->ethMarket->percent = $ethMatches[3];
+
+        $returnData->ltcMarket = new SmallMarketData;
+        $returnData->ltcMarket->price = $ltcMatches[1];
+        $returnData->ltcMarket->change = $ltcMatches[2];
+        $returnData->ltcMarket->percent = $ltcMatches[3];
 
         if ($btcMatches[2] == 'n') {
             $returnData->btcMarket->percent = '-' . $returnData->btcMarket->percent;

@@ -17,11 +17,11 @@ body {
         color: rgba(255,255,255,.60);
         text-align: left;
         font-size: 1.8vw;
-        padding: 8px 8px 2px 8px;
+        padding: 5px 5px 2px 5px;
     }
 
     #metal-market td{
-        padding: 8px;
+        padding: 5px;
         color: #FFFFFF;
         font-size: 2.8vw;
     }
@@ -53,7 +53,9 @@ body {
     background-color: rgba(255,255,255,.09);
     border-radius: 5px;
     font-weight: bold;
-    margin: 10px 0px 10px 10px;
+    margin: 5px;
+    white-space: nowrap;
+    height: fit-content;
 }
 
 .top-info-card:hover{
@@ -82,6 +84,9 @@ body {
     border-radius: 5px;
     display: flex; 
     flex-direction: row;
+    flex-wrap: wrap;
+    padding: 5px;
+    margin: 5px;
 }
 
 
@@ -89,6 +94,8 @@ body {
     background-color: rgba(255,255,255,.07);
     border-radius: 5px;
     padding: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .card-section{
@@ -99,7 +106,7 @@ body {
 }
 
 .div-section{
-    padding: 10px 10px 0px 10px;
+    padding: 5px 5px 0px 5px;
 }
 
 .down-color{

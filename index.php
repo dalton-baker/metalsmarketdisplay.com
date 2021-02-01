@@ -34,8 +34,8 @@ foreach ($kitcoData->metalsMarket as $market) {
   <?php include './components/sidebar.php'; ?>
 
   <div style="padding-top: 64px">
-    <div class="div-section">
-      <div class="top-info-section card">
+    <div class="div-section" style="display: flex;">
+      <div class="top-info-section card" style="flex-direction: column;">
 
         <div class="top-info-card">
           <div class="top-info-card-title">Market Status</div>
@@ -52,7 +52,9 @@ foreach ($kitcoData->metalsMarket as $market) {
             <?= number_format($currGold / $currSilver, 2, '.', '') ?>
           </div>
         </div>
+      </div>
 
+      <div class="top-info-section card" style="flex: 1;">
         <div class="top-info-card">
           <div class="top-info-card-title">USD</div>
           <div class="top-info-card-prices">
@@ -68,7 +70,7 @@ foreach ($kitcoData->metalsMarket as $market) {
         <div class="top-info-card">
           <div class="top-info-card-title">Dow Jones</div>
           <div class="top-info-card-prices">
-            <div style="padding-right: 10px;"><?= $kitcoData->djiaMarket->price ?></div>
+            <div style="padding-right: 10px;">$<?= $kitcoData->djiaMarket->price ?></div>
             <?php if (floatval($kitcoData->djiaMarket->percent) < 0) : ?>
               <div class="down-color">&#x25BC;<?= number_format(abs(floatval($kitcoData->djiaMarket->percent)), 2, '.', '') ?>%</div>
             <?php else : ?>
@@ -78,13 +80,61 @@ foreach ($kitcoData->metalsMarket as $market) {
         </div>
 
         <div class="top-info-card">
+          <div class="top-info-card-title">S&P 500</div>
+          <div class="top-info-card-prices">
+            <div style="padding-right: 10px;">$<?= $kitcoData->spxMarket->price ?></div>
+            <?php if (floatval($kitcoData->spxMarket->percent) < 0) : ?>
+              <div class="down-color">&#x25BC;<?= number_format(abs(floatval($kitcoData->spxMarket->percent)), 2, '.', '') ?>%</div>
+            <?php else : ?>
+              <div class="up-color">&#x25B2;<?= number_format(abs(floatval($kitcoData->spxMarket->percent)), 2, '.', '') ?>%</div>
+            <?php endif ?>
+          </div>
+        </div>
+
+        <div class="top-info-card">
+          <div class="top-info-card-title">NASDAQ</div>
+          <div class="top-info-card-prices">
+            <div style="padding-right: 10px;">$<?= $kitcoData->compMarket->price ?></div>
+            <?php if (floatval($kitcoData->compMarket->percent) < 0) : ?>
+              <div class="down-color">&#x25BC;<?= number_format(abs(floatval($kitcoData->compMarket->percent)), 2, '.', '') ?>%</div>
+            <?php else : ?>
+              <div class="up-color">&#x25B2;<?= number_format(abs(floatval($kitcoData->compMarket->percent)), 2, '.', '') ?>%</div>
+            <?php endif ?>
+          </div>
+        </div>
+
+        <div class="top-info-card">
           <div class="top-info-card-title">Bitcoin</div>
           <div class="top-info-card-prices">
-            <div style="padding-right: 10px;"><?= $kitcoData->btcMarket->price ?></div>
+            <div style="padding-right: 10px;">$<?= $kitcoData->btcMarket->price ?></div>
             <?php if (floatval($kitcoData->btcMarket->percent) < 0) : ?>
               <div class="down-color">&#x25BC;<?= number_format(abs(floatval($kitcoData->btcMarket->percent)), 2, '.', '') ?>%</div>
             <?php else : ?>
               <div class="up-color">&#x25B2;<?= number_format(abs(floatval($kitcoData->btcMarket->percent)), 2, '.', '') ?>%</div>
+            <?php endif ?>
+          </div>
+        </div>
+
+        <div class="top-info-card">
+          <div class="top-info-card-title">Ethereum</div>
+          <div class="top-info-card-prices">
+            <div style="padding-right: 10px;">$<?= $kitcoData->ethMarket->price ?></div>
+            <?php if (floatval($kitcoData->ethMarket->percent) < 0) : ?>
+              <div class="down-color">&#x25BC;<?= number_format(abs(floatval($kitcoData->ethMarket->percent)), 2, '.', '') ?>%</div>
+            <?php else : ?>
+              <div class="up-color">&#x25B2;<?= number_format(abs(floatval($kitcoData->ethMarket->percent)), 2, '.', '') ?>%</div>
+            <?php endif ?>
+          </div>
+        </div>
+
+        <div class="top-info-card">
+          <div class="top-info-card-title">Litecoin</div>
+          <div class="top-info-card-prices">
+            <div style="padding-right: 10px;">$<?= $kitcoData->ltcMarket->price ?></div>
+            <?php if (floatval($kitcoData->ltcMarket->percent) < 0) : ?>
+              <div class="down-color">&#x25BC;<?= number_format(abs(floatval($kitcoData->ltcMarket->percent)), 2, '.', '') ?>%</div>
+            <?php else : ?>
+              <div class="up-color">&#x25B2;<?= number_format(abs(floatval($kitcoData->ltcMarket->percent)), 2, '.', '') ?>%</div>
             <?php endif ?>
           </div>
         </div>
