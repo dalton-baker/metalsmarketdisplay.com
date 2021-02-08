@@ -53,14 +53,27 @@
         </div>
 
         <div class="about-div card" style="flex-direction:column; align-items: center;">
-            <div style="margin: 10px;">
-                <iframe src="https://metalsmarketdisplay.com/embed/metals" style="height: 250px; width: 205px; border:none; border-radius: 5px;"></iframe>
+            <div style="padding: 5px;">
+                Feel free embed these into your own website. Use the code below them and just drop it right into your html.
             </div>
-            <div class="code-card card">
-                <p>
-                    Feel free to use the following code to embed the thing to the left into your own website. I will probably make new versions of these in the future!
-                </p>
-                <pre><code>&lt;iframe src="https://metalsmarketdisplay.com/embed/metals" style="height: 250px; width: 205px; border:none; border-radius: 5px;"&gt;&lt;/iframe&gt;</code></pre>
+            <div style="flex-direction:row; align-items: center; display: flex; flex-wrap: wrap;">
+                <div style="flex-direction:column; align-items: center; display: flex; flex: 1;">
+                    <div style="margin: 10px;">
+                        <iframe src="/embed/largename" style="height: 250px; width: 205px; border:none; border-radius: 5px;"></iframe>
+                    </div>
+                    <div class="code-card card">
+                        <pre><code>&lt;iframe src="https://metalsmarketdisplay.com/embed/largename" style="height: 250px; width: 205px; border:none; border-radius: 5px;"&gt;&lt;/iframe&gt;</code></pre>
+                    </div>
+                </div>
+
+                <div style="flex-direction:column; align-items: center; display: flex; flex: 1;">
+                    <div style="margin: 10px;">
+                        <iframe src="/embed/smallname" style="height: 250px; width: 205px; border:none; border-radius: 5px;"></iframe>
+                    </div>
+                    <div class="code-card card">
+                        <pre><code>&lt;iframe src="https://metalsmarketdisplay.com/embed/smallname" style="height: 250px; width: 205px; border:none; border-radius: 5px;"&gt;&lt;/iframe&gt;</code></pre>
+                    </div>
+                </div>
             </div>
         </div>
 

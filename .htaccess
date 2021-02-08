@@ -9,7 +9,8 @@
     RewriteRule ^api/updatemarket$ ./cgi-bin/updatemarket.php [NC]
     RewriteRule ^siteinfo$ ./info.php [NC]
     RewriteRule ^about$ ./sub-pages/about.php [NC]
-    RewriteRule ^embed/metals$ ./embeds/metals.php [NC]
+    RewriteRule ^embed/largename$ ./embeds/largename.php [NC]
+    RewriteRule ^embed/smallname$ ./embeds/smallname.php [NC]
 </IfModule>
 # End EnforceSSL
 

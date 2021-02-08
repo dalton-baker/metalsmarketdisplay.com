@@ -8,7 +8,56 @@ body {
 .main-div{
     height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
+
+.metal-card{
+    display: flex;
+    font-weight: bold;
+    background-color: rgba(255,255,255,.09);
+    border-radius: 5px;
+    margin: 5px 5px 0px 5px;
+    padding: 5px;
+}
+
+.metal-card:hover{
+    background-color: rgba(255,255,255,.12);
+    transition: 0.3s;
+}
+
+.metal-card-lrgname{
+    text-align: left;
+    color: #FFFFFF;
+    font-size: 24px;
+    flex: 1;
+}
+
+.metal-card-prices-lrgname
+{
+    display: flex;
+    flex-direction: column;
+    color: #FFFFFF;
+    font-size: 16px;
+    text-align: right;
+    width: 75px;
+}
+
+.metal-card-smname{
+    text-align: left;
+    color: rgba(255,255,255,.60);
+    font-size: 13px;
+    flex: 1;
+}
+
+.metal-card-prices-smname
+{
+    display: flex;
+    flex-direction: row;
+    color: #FFFFFF;
+    font-size: 19px;
+}
+
 
 .card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -27,54 +76,15 @@ body {
     color: #549267 !important;
 }
 
-#metal-market {
-    border-collapse: collapse;
-    font-weight: bold;
-    background-color: rgba(255,255,255,.09);
-    border-radius: 5px;
-    margin: 5px;
-    padding: 5px;
-}
-
-    #metal-market th {
-        text-align: left;
-        color: #FFFFFF;
-        font-size: 24px;
-        width: 115px;
-        padding: 5px;
-    }
-
-    #metal-market td{
-        color: #FFFFFF;
-        font-size: 16px;
-        text-align: right;
-        width: 75px;
-    }
-
-    #metal-market td:first-child{
-        padding-top: 0px !important;;
-    }
-
-    #metal-market td:last-child{
-        padding: 3px 5px 3px 0px;
-
-    }
-
-    #metal-market:hover {
-        background-color: rgba(255,255,255,.12);
-        transition: 0.3s;
-    }
-
 .link-card{
     background-color: rgba(255,255,255,.09);
     border-radius: 5px;
-    padding: 5px 10px 5px 10px;
+    padding: 5px;
     text-decoration: none;
     font-size: 14px;
     color: #FFFFFF;
-    display: block;
     transition: 0.3s;
-    margin: 5px;
+    margin: 5px 5px 0px 5px;
     text-align: center;
 }
 

@@ -27,25 +27,24 @@ fclose($myfile);
         </a>
 
         <?php foreach ($kitcoData->metalsMarket as $market) : ?>
-            <table id="metal-market" class="card">
-                <tr>
-                    <th rowspan="2">
-                        <?= $market->name; ?>
-                    </th>
-                    <td>
+
+            <div class="metal-card card">
+                <div class="metal-card-lrgname">
+                    <?= $market->name; ?>
+                </div>
+                <div class="metal-card-prices-lrgname">
+                    <div>
                         $<?= $market->bid; ?>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
+                    </div>
+                    <div>
                         <?php if (floatval($market->change) < 0) : ?>
                             <span class="down-color">&#x25BC;<?= number_format(abs(floatval($market->change)), 2, '.', '') ?></span>
                         <?php else : ?>
                             <span class="up-color">&#x25B2;<?= number_format(abs(floatval($market->change)), 2, '.', '') ?></span>
                         <?php endif ?>
-                    </td>
-                </tr>
-            </table>
+                    </div>
+                </div>
+            </div>
         <?php endforeach; ?>
     </div>
 

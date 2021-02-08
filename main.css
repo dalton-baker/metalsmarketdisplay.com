@@ -66,14 +66,14 @@ body {
     color: rgba(255,255,255,.60);
     text-align: left;
     padding: 4px 8px 0px 8px;
-    font-size: 1.3vw;
+    font-size: 1.2vw;
 }
 
 .top-info-card-prices{
     color: #FFFFFF;
     text-align: center;
     padding: 0px 8px 4px 8px;
-    font-size: 2.3vw;
+    font-size: 2.2vw;
     display: flex; 
     flex-direction: row;
     justify-content: center;
