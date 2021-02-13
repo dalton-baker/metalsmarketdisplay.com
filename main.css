@@ -5,47 +5,86 @@ body {
     margin: 0;
 }
 
-#metal-market {
+.felx-table{
     border-collapse: collapse;
     width: 100%;
     font-weight: bold;
     background-color: rgba(255,255,255,.09);
     border-radius: 5px;
+    display: flex;
+    flex-direction: column;
 }
 
-    #metal-market th {
-        color: rgba(255,255,255,.60);
-        text-align: left;
-        font-size: 1.8vw;
-        padding: 5px 5px 2px 5px;
-    }
+.title-row{
+    color: rgba(255,255,255,.60);
+    text-align: left;
+    font-size: 1.8vmax;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
 
-    #metal-market td{
-        padding: 5px;
-        color: #FFFFFF;
-        font-size: 2.8vw;
-    }
+.metal-row{
+    color: #FFFFFF;
+    font-size: 2.8vmax;
+    display: flex;
+    flex-direction: row;
+    border-top: 2px solid #525252;
+    flex-wrap: wrap;
+}
 
-    #metal-market tr:hover {
-        background-color: rgba(255,255,255,.05);
-        transition: 0.3s;
-    }
-    
-    #metal-market tr:first-child:hover {
-        background-color: rgba(255,255,255,.0);
-    }
+.metal-row:hover {
+    background-color: rgba(255,255,255,.05);
+    transition: 0.3s;
+}
 
-    #metal-market td:first-child, #metal-market th:first-child{
-        border-right: 2px solid #525252
-    }
+.title-cell{
+    padding: 5px 5px 2px 5px;
+    min-width: 100px;
+}
 
-    #metal-market tr {
-        border-bottom: 2px solid #525252
-    }
+.cell{
+    padding: 5px;
+    min-width: 100px;
+}
 
-    #metal-market tr:last-child {
-        border-bottom: 0px solid #525252
-    }
+.colapse-row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: 2;
+}
+
+.colapse-name{
+    display: flex;
+    flex-direction: row;
+    flex: 6;
+    min-width: 340px;
+}
+
+.metal{
+    flex: 1;
+    color: rgba(255,255,255,.60);
+    font-size: 2.3vmax;
+}
+.bid{
+    flex: 1;
+}
+.ask{
+    flex: 1;
+}
+.change{
+    flex: 1;
+}
+.change-p{
+    flex: 1;
+}
+.low{
+    flex: 1;
+}
+.high{
+    flex: 1;
+}
 
 .top-info-card{
     display: flex; 
@@ -66,14 +105,14 @@ body {
     color: rgba(255,255,255,.60);
     text-align: left;
     padding: 4px 8px 0px 8px;
-    font-size: 1.2vw;
+    font-size: 1.2vmax;
 }
 
 .top-info-card-prices{
     color: #FFFFFF;
     text-align: center;
     padding: 0px 8px 4px 8px;
-    font-size: 2.2vw;
+    font-size: 2.2vmax;
     display: flex; 
     flex-direction: row;
     justify-content: center;
@@ -135,7 +174,7 @@ body {
 .image-link-dimensions {
     flex: 1;
     margin: 10px;
-    min-width: 480px;
+    min-width: 300px;
 }
 
 .image-dimensions {

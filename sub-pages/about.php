@@ -6,6 +6,7 @@
 
 <head>
     <title>Metals Market Display</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- https://material.io/resources/icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -20,7 +21,7 @@
     <div style="padding: 64px 10px 10px 10px;">
         <div class="about-div card">
 
-            <div class="about-card card">
+            <div class="about-card card" style="flex: 1; min-width: 60%;">
                 <div style="font-size: 1.2em; text-align: center;">Site Info</div>
                 <div class="about-info-card card">
                     <p>
@@ -56,23 +57,19 @@
             <div style="padding: 5px;">
                 Feel free embed these into your own website. Use the code below them and just drop it right into your html.
             </div>
-            <div style="flex-direction:row; align-items: center; display: flex; flex-wrap: wrap;">
+            <div style="flex-direction:row; align-items: center; display: flex; flex-wrap: wrap; width: 100%;">
                 <div style="flex-direction:column; align-items: center; display: flex; flex: 1;">
                     <div style="margin: 10px;">
                         <iframe src="/embed/largename" style="height: 250px; width: 205px; border:none; border-radius: 5px;"></iframe>
                     </div>
-                    <div class="code-card card">
-                        <pre><code>&lt;iframe src="https://metalsmarketdisplay.com/embed/largename" style="height: 250px; width: 205px; border:none; border-radius: 5px;"&gt;&lt;/iframe&gt;</code></pre>
-                    </div>
+                    <textarea class="code-card card"><iframe src="https://metalsmarketdisplay.com/embed/largename" style="height: 250px; width: 205px; border:none; border-radius: 5px;"></iframe></textarea>
                 </div>
 
                 <div style="flex-direction:column; align-items: center; display: flex; flex: 1;">
                     <div style="margin: 10px;">
                         <iframe src="/embed/smallname" style="height: 250px; width: 205px; border:none; border-radius: 5px;"></iframe>
                     </div>
-                    <div class="code-card card">
-                        <pre><code>&lt;iframe src="https://metalsmarketdisplay.com/embed/smallname" style="height: 250px; width: 205px; border:none; border-radius: 5px;"&gt;&lt;/iframe&gt;</code></pre>
-                    </div>
+                    <textarea class="code-card card"><iframe src="https://metalsmarketdisplay.com/embed/smallname" style="height: 250px; width: 205px; border:none; border-radius: 5px;"></iframe></textarea>
                 </div>
             </div>
         </div>
