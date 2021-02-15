@@ -6,8 +6,8 @@
 </style>
 
 <?php
-$marketfile = fopen("../marketData.json", "r") or die("Unable to open file!");
-$kitcoData = json_decode(fread($marketfile, filesize("../marketData.json")));
+$metalsMarketFile = fopen("../metals_market_data.json", "r") or die("Unable to open file!");
+$metalsMarketData = json_decode(fread($metalsMarketFile, filesize("../metals_market_data.json")));
 fclose($myfile);
 ?>
 
@@ -26,7 +26,7 @@ fclose($myfile);
             MetalsMarketDisplay.com
         </a>
 
-        <?php foreach ($kitcoData->metalsMarket as $market) : ?>
+        <?php foreach ($metalsMarketData->market as $market) : ?>
 
             <div class="metal-card card">
                 <div class="metal-card-lrgname">

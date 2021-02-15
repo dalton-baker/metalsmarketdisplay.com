@@ -1,23 +1,6 @@
 <?php
 # curl.php
 
-class KitcoData
-{
-    public $marketStatus;
-    public $changeTime;
-    public $metalsMarket = array();
-    public $usdMarket;
-    public $djiaMarket;
-    public $btcMarket;
-}
-
-class SmallMarketData
-{
-    public $price;
-    public $change;
-    public $percent;
-}
-
 class MarketData
 {
     public $name;
@@ -40,11 +23,42 @@ class MarketData
     }
 }
 
+class CompactMarketData
+{
+    public $name;
+    public $price;
+    public $change;
+    public $percent;
+
+    public function __construct($name, $price, $change, $percent)
+    {
+        $this->name = $name;
+        $this->price = $price;
+        $this->change = $change;
+        $this->percent = $percent;
+    }
+}
+
+class MetalsMarketData
+{
+    public $marketStatus;
+    public $updateTime;
+    public $market = array();
+}
+
+class MiscMarketData
+{
+    public $updateTime;
+    public $market = array();
+}
+
 if ($_GET["auth"] != "3832d15f-8e27-4eea-a24a-0b9712fd1bc1") {
     http_response_code(401);
     echo 'You are not authorised!';
-}
-else{
+} else {
+
+    $returnInfo = "Data update status: ";
+
     // Initialize a connection with cURL (ch = cURL handle, or "channel")
     try {
         $ch = curl_init();
@@ -127,58 +141,62 @@ else{
         preg_match('/price" content="\$(.*)".*\s.*priceChange" content="(.*)".*\s.*priceChangePercent" content="(.*)%/', $ethResponse, $ethMatches);
         preg_match('/price" content="\$(.*)".*\s.*priceChange" content="(.*)".*\s.*priceChangePercent" content="(.*)%/', $ltcResponse, $ltcMatches);
 
-        $returnData = new KitcoData;
-        $returnData->marketStatus = $marketStatus[1];
-        $returnData->changeTime = gmdate("m/d/Y H:i:s") . " UTC";
-        array_push($returnData->metalsMarket, new MarketData("Silver", $askAGmatch[1], $bidAGmatch[1], $changeAGmatch[1], $percentAGmatch[1], $lowAGmatch[1], $highAGmatch[1]));
-        array_push($returnData->metalsMarket, new MarketData("Gold", $askAUmatch[1], $bidAUmatch[1], $changeAUmatch[1], $percentAUmatch[1], $lowAUmatch[1], $highAUmatch[1]));
-        array_push($returnData->metalsMarket, new MarketData("Platinum", $askPTmatch[1], $bidPTmatch[1], $changePTmatch[1], $percentPTmatch[1], $lowPTmatch[1], $highPTmatch[1]));
-        array_push($returnData->metalsMarket, new MarketData("Palladium", $askPDmatch[1], $bidPDmatch[1], $changePDmatch[1], $percentPDmatch[1], $lowPDmatch[1], $highPDmatch[1]));
+        if (
+            !empty($askAGmatch[1]) and !empty($bidAGmatch[1]) and !empty($changeAGmatch[1]) and !empty($percentAGmatch[1]) and !empty($lowAGmatch[1]) and !empty($highAGmatch[1]) and
+            !empty($askAUmatch[1]) and !empty($bidAUmatch[1]) and !empty($changeAUmatch[1]) and !empty($percentAUmatch[1]) and !empty($lowAUmatch[1]) and !empty($highAUmatch[1]) and
+            !empty($askPTmatch[1]) and !empty($bidPTmatch[1]) and !empty($changePTmatch[1]) and !empty($percentPTmatch[1]) and !empty($lowPTmatch[1]) and !empty($highPTmatch[1]) and
+            !empty($askPDmatch[1]) and !empty($bidPDmatch[1]) and !empty($changePDmatch[1]) and !empty($percentPDmatch[1]) and !empty($lowPDmatch[1]) and !empty($highPDmatch[1])
+        ) {
+            $metalsMarketData = new MetalsMarketData;
+            $metalsMarketData->marketStatus = $marketStatus[1];
+            $metalsMarketData->updateTime = gmdate("m/d/Y H:i:s") . " UTC";
+            array_push($metalsMarketData->market, new MarketData("Silver", $askAGmatch[1], $bidAGmatch[1], $changeAGmatch[1], $percentAGmatch[1], $lowAGmatch[1], $highAGmatch[1]));
+            array_push($metalsMarketData->market, new MarketData("Gold", $askAUmatch[1], $bidAUmatch[1], $changeAUmatch[1], $percentAUmatch[1], $lowAUmatch[1], $highAUmatch[1]));
+            array_push($metalsMarketData->market, new MarketData("Platinum", $askPTmatch[1], $bidPTmatch[1], $changePTmatch[1], $percentPTmatch[1], $lowPTmatch[1], $highPTmatch[1]));
+            array_push($metalsMarketData->market, new MarketData("Palladium", $askPDmatch[1], $bidPDmatch[1], $changePDmatch[1], $percentPDmatch[1], $lowPDmatch[1], $highPDmatch[1]));
 
-        $returnData->usdMarket = new SmallMarketData;
-        $returnData->usdMarket->price = $usdMatches[1];
-        $returnData->usdMarket->change = $usdMatches[2];
-        $returnData->usdMarket->percent = $usdMatches[3];
+            $metalsFile = fopen("../metals_market_data.json", "w") or die("Unable to open file!");
+            fwrite($metalsFile, json_encode($metalsMarketData));
+            fclose($metalsFile);
 
-        $returnData->djiaMarket = new SmallMarketData;
-        $returnData->djiaMarket->price = $djiaMatches[1];
-        $returnData->djiaMarket->change = $djiaMatches[2];
-        $returnData->djiaMarket->percent = $djiaMatches[3];
-
-        $returnData->spxMarket = new SmallMarketData;
-        $returnData->spxMarket->price = $spxMatches[1];
-        $returnData->spxMarket->change = $spxMatches[2];
-        $returnData->spxMarket->percent = $spxMatches[3];
-
-        $returnData->compMarket = new SmallMarketData;
-        $returnData->compMarket->price = $compMatches[1];
-        $returnData->compMarket->change = $compMatches[2];
-        $returnData->compMarket->percent = $compMatches[3];
-
-        $returnData->btcMarket = new SmallMarketData;
-        $returnData->btcMarket->price = $btcMatches[1] . ".00";
-        $returnData->btcMarket->change = $btcMatches[2];
-        $returnData->btcMarket->percent = $btcMatches[3];
-
-        $returnData->ethMarket = new SmallMarketData;
-        $returnData->ethMarket->price = $ethMatches[1];
-        $returnData->ethMarket->change = $ethMatches[2];
-        $returnData->ethMarket->percent = $ethMatches[3];
-
-        $returnData->ltcMarket = new SmallMarketData;
-        $returnData->ltcMarket->price = $ltcMatches[1];
-        $returnData->ltcMarket->change = $ltcMatches[2];
-        $returnData->ltcMarket->percent = $ltcMatches[3];
-
-        if ($btcMatches[2] == 'n') {
-            $returnData->btcMarket->percent = '-' . $returnData->btcMarket->percent;
+            $returnInfo .= "Metals data updated succesfully at " . $metalsMarketData->updateTime;
+        }
+        else
+        {
+            $returnInfo .= "Metals data failed update";
         }
 
-        $myfile = fopen("../marketData.json", "w") or die("Unable to open file!");
-        fwrite($myfile, json_encode($returnData));
-        fclose($myfile);
 
-        echo 'Data was updated successfully at ' . $returnData->changeTime;
+        if(!empty($usdMatches[1]) and !empty($usdMatches[2]) and !empty($usdMatches[3]) and
+           !empty($djiaMatches[1]) and !empty($djiaMatches[2]) and !empty($djiaMatches[3]) and
+           !empty($spxMatches[1]) and !empty($spxMatches[2]) and !empty($spxMatches[3]) and
+           !empty($compMatches[1]) and !empty($compMatches[2]) and !empty($compMatches[3]) and
+           !empty($btcMatches[1]) and !empty($btcMatches[2]) and !empty($btcMatches[3]) and
+           !empty($ethMatches[1]) and !empty($ethMatches[2]) and !empty($ethMatches[3]) and
+           !empty($ltcMatches[1]) and !empty($ltcMatches[2]) and !empty($ltcMatches[3]) )
+        {
+            $miscMarketData = new MiscMarketData;
+            $miscMarketData->updateTime = gmdate("m/d/Y H:i:s") . " UTC";
+            array_push($miscMarketData->market, new CompactMarketData("USD", $usdMatches[1], $usdMatches[2], $usdMatches[3]));
+            array_push($miscMarketData->market, new CompactMarketData("Dow Jones", $djiaMatches[1], $djiaMatches[2], $djiaMatches[3]));
+            array_push($miscMarketData->market, new CompactMarketData("S&P 500", $spxMatches[1], $spxMatches[2], $spxMatches[3]));
+            array_push($miscMarketData->market, new CompactMarketData("NASDAQ", $compMatches[1], $compMatches[2], $compMatches[3]));
+            array_push($miscMarketData->market, new CompactMarketData("Bitcoin", $btcMatches[1] . ".00", $btcMatches[2], $btcMatches[3]));
+            array_push($miscMarketData->market, new CompactMarketData("Ethereum", $ethMatches[1], $ethMatches[2], $ethMatches[3]));
+            array_push($miscMarketData->market, new CompactMarketData("Litecoin", $ltcMatches[1], $ltcMatches[2], $ltcMatches[3]));
+
+            $miscFile = fopen("../misc_market_data.json", "w") or die("Unable to open file!");
+            fwrite($miscFile, json_encode($miscMarketData));
+            fclose($miscFile);
+
+            $returnInfo .= ", Misc. data updated succesfully at " . $miscMarketData->updateTime;
+        }
+        else
+        {
+            $returnInfo .= ", Misc. data failed update\n";
+        }
+
+        echo $returnInfo;
     } catch (Exception $e) {
         http_response_code(500);
         echo 'Caught exception: ',  $e->getMessage(), "\n";

@@ -33,6 +33,13 @@ body {
     flex-wrap: wrap;
 }
 
+.last-update-row{
+    color: #FFFFFF;
+    font-size: 1vmax;
+    padding: 5px;
+    text-align: right;
+}
+
 .metal-row:hover {
     background-color: rgba(255,255,255,.05);
     transition: 0.3s;

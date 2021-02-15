@@ -5,11 +5,15 @@
 </style>
 
 <?php
-$marketfile = fopen("marketData.json", "r") or die("Unable to open file!");
-$kitcoData = json_decode(fread($marketfile, filesize("marketData.json")));
+$metalsMarketFile = fopen("metals_market_data.json", "r") or die("Unable to open file!");
+$metalsMarketData = json_decode(fread($metalsMarketFile, filesize("metals_market_data.json")));
 fclose($myfile);
 
-foreach ($kitcoData->metalsMarket as $market) {
+$miscMarketFile = fopen("misc_market_data.json", "r") or die("Unable to open file!");
+$miscMarketData = json_decode(fread($miscMarketFile, filesize("misc_market_data.json")));
+fclose($myfile);
+
+foreach ($metalsMarketData->market as $market) {
   if ($market->name == "Silver") {
     $currSilver = floatval($market->ask);
   }
@@ -40,7 +44,7 @@ foreach ($kitcoData->metalsMarket as $market) {
 
         <div class="top-info-card">
           <div class="top-info-card-title">Market Status</div>
-          <?php if ($kitcoData->marketStatus == 'OPEN') : ?>
+          <?php if ($metalsMarketData->marketStatus == 'OPEN') : ?>
             <div class="top-info-card-prices up-color">OPEN</div>
           <?php else : ?>
             <div class="top-info-card-prices down-color">CLOSED</div>
@@ -56,90 +60,19 @@ foreach ($kitcoData->metalsMarket as $market) {
       </div>
 
       <div class="top-info-section card" style="flex: 1; min-width: 75%;">
-        <div class="top-info-card">
-          <div class="top-info-card-title">USD</div>
-          <div class="top-info-card-prices">
-            <div style="padding-right: 10px;"><?= $kitcoData->usdMarket->price ?></div>
-            <?php if (floatval($kitcoData->usdMarket->percent) < 0) : ?>
-              <div class="down-color">&#x25BC;<?= number_format(abs(floatval($kitcoData->usdMarket->percent)), 2, '.', '') ?>%</div>
-            <?php else : ?>
-              <div class="up-color">&#x25B2;<?= number_format(abs(floatval($kitcoData->usdMarket->percent)), 2, '.', '') ?>%</div>
-            <?php endif ?>
+        <?php foreach ($miscMarketData->market as $market) : ?>
+          <div class="top-info-card">
+            <div class="top-info-card-title"><?= $market->name; ?></div>
+            <div class="top-info-card-prices">
+              <div style="padding-right: 10px;"><?= $market->price ?></div>
+              <?php if (floatval($market->percent) < 0) : ?>
+                <div class="down-color">&#x25BC;<?= number_format(abs(floatval($market->percent)), 2, '.', '') ?>%</div>
+              <?php else : ?>
+                <div class="up-color">&#x25B2;<?= number_format(abs(floatval($market->percent)), 2, '.', '') ?>%</div>
+              <?php endif ?>
+            </div>
           </div>
-        </div>
-
-        <div class="top-info-card">
-          <div class="top-info-card-title">Dow Jones</div>
-          <div class="top-info-card-prices">
-            <div style="padding-right: 10px;">$<?= $kitcoData->djiaMarket->price ?></div>
-            <?php if (floatval($kitcoData->djiaMarket->percent) < 0) : ?>
-              <div class="down-color">&#x25BC;<?= number_format(abs(floatval($kitcoData->djiaMarket->percent)), 2, '.', '') ?>%</div>
-            <?php else : ?>
-              <div class="up-color">&#x25B2;<?= number_format(abs(floatval($kitcoData->djiaMarket->percent)), 2, '.', '') ?>%</div>
-            <?php endif ?>
-          </div>
-        </div>
-
-        <div class="top-info-card">
-          <div class="top-info-card-title">S&P 500</div>
-          <div class="top-info-card-prices">
-            <div style="padding-right: 10px;">$<?= $kitcoData->spxMarket->price ?></div>
-            <?php if (floatval($kitcoData->spxMarket->percent) < 0) : ?>
-              <div class="down-color">&#x25BC;<?= number_format(abs(floatval($kitcoData->spxMarket->percent)), 2, '.', '') ?>%</div>
-            <?php else : ?>
-              <div class="up-color">&#x25B2;<?= number_format(abs(floatval($kitcoData->spxMarket->percent)), 2, '.', '') ?>%</div>
-            <?php endif ?>
-          </div>
-        </div>
-
-        <div class="top-info-card">
-          <div class="top-info-card-title">NASDAQ</div>
-          <div class="top-info-card-prices">
-            <div style="padding-right: 10px;">$<?= $kitcoData->compMarket->price ?></div>
-            <?php if (floatval($kitcoData->compMarket->percent) < 0) : ?>
-              <div class="down-color">&#x25BC;<?= number_format(abs(floatval($kitcoData->compMarket->percent)), 2, '.', '') ?>%</div>
-            <?php else : ?>
-              <div class="up-color">&#x25B2;<?= number_format(abs(floatval($kitcoData->compMarket->percent)), 2, '.', '') ?>%</div>
-            <?php endif ?>
-          </div>
-        </div>
-
-        <div class="top-info-card">
-          <div class="top-info-card-title">Bitcoin</div>
-          <div class="top-info-card-prices">
-            <div style="padding-right: 10px;">$<?= $kitcoData->btcMarket->price ?></div>
-            <?php if (floatval($kitcoData->btcMarket->percent) < 0) : ?>
-              <div class="down-color">&#x25BC;<?= number_format(abs(floatval($kitcoData->btcMarket->percent)), 2, '.', '') ?>%</div>
-            <?php else : ?>
-              <div class="up-color">&#x25B2;<?= number_format(abs(floatval($kitcoData->btcMarket->percent)), 2, '.', '') ?>%</div>
-            <?php endif ?>
-          </div>
-        </div>
-
-        <div class="top-info-card">
-          <div class="top-info-card-title">Ethereum</div>
-          <div class="top-info-card-prices">
-            <div style="padding-right: 10px;">$<?= $kitcoData->ethMarket->price ?></div>
-            <?php if (floatval($kitcoData->ethMarket->percent) < 0) : ?>
-              <div class="down-color">&#x25BC;<?= number_format(abs(floatval($kitcoData->ethMarket->percent)), 2, '.', '') ?>%</div>
-            <?php else : ?>
-              <div class="up-color">&#x25B2;<?= number_format(abs(floatval($kitcoData->ethMarket->percent)), 2, '.', '') ?>%</div>
-            <?php endif ?>
-          </div>
-        </div>
-
-        <div class="top-info-card">
-          <div class="top-info-card-title">Litecoin</div>
-          <div class="top-info-card-prices">
-            <div style="padding-right: 10px;">$<?= $kitcoData->ltcMarket->price ?></div>
-            <?php if (floatval($kitcoData->ltcMarket->percent) < 0) : ?>
-              <div class="down-color">&#x25BC;<?= number_format(abs(floatval($kitcoData->ltcMarket->percent)), 2, '.', '') ?>%</div>
-            <?php else : ?>
-              <div class="up-color">&#x25B2;<?= number_format(abs(floatval($kitcoData->ltcMarket->percent)), 2, '.', '') ?>%</div>
-            <?php endif ?>
-          </div>
-        </div>
-
+        <?php endforeach; ?>
       </div>
     </div>
 
@@ -163,7 +96,7 @@ foreach ($kitcoData->metalsMarket as $market) {
               </div>
             </div>
           </div>
-          <?php foreach ($kitcoData->metalsMarket as $market) : ?>
+          <?php foreach ($metalsMarketData->market as $market) : ?>
             <div class="metal-row">
 
               <div class="cell metal"><?= $market->name; ?></div>
@@ -194,6 +127,7 @@ foreach ($kitcoData->metalsMarket as $market) {
             </div>
           <?php endforeach; ?>
         </div>
+        <div class="last-update-row" id="lastUpdate"></div>
       </div>
     </div>
 
@@ -208,7 +142,7 @@ foreach ($kitcoData->metalsMarket as $market) {
     </div>
 
     <script type="text/javascript">
-      var phpDate = "<?= $kitcoData->changeTime ?>";
+      var phpDate = "<?= $metalsMarketData->updateTime ?>";
     </script>
     <script type="text/javascript" src="main.js"></script>
 
